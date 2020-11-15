@@ -1,0 +1,53 @@
+<!-- <?xml version="1.0" ?> -->
+<launch>
+
+  <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+  <arg name="robot_name" default="rover_denso" />
+  <arg name="vs050" default="true" />
+  <arg name="ip_address" default="192.168.0.100" />
+
+  <!-- Chose moveit planning pipeline -->
+  <arg name="pipeline" default="ompl" />
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <group if="$(arg vs050)">
+    <param name="robot_description"
+      command="$(find xacro)/xacro --inorder '$(find rover_denso_description)/urdf/rover_denso.xacro'" />
+  </group>  
+
+  <group unless="$(arg vs050)">
+    <param name="robot_description"
+      command="$(find xacro)/xacro --inorder '$(find rover_denso_description)/urdf/rover_denso_vs060.xacro'" />
+  </group>  
+
+  <!-- Parameters for Launching Denso Controler for the Manipulator -->
+  <arg name="send_format" default="288" />
+  <arg name="recv_format" default="292" />
+
+  <!-- Launching Packages for Motion Planning (MoveIt, RViz, Robot Configs) -->
+  <!--loads the kinematics and joint_limits yaml as well as URDF/SRDF file-->
+  <include file="$(find rover_denso_moveit)/launch/planning_context.launch">
+    <arg name="load_robot_description" value="false" />
+  </include>
+
+  <!-- Launching Denso Controllers for the Manipulator -->
+  <!--This launch file launches the control.yaml file as well as all the other controllers -->
+  <include file="$(find rover_denso_control)/launch/rover_denso_control.launch">
+      <arg name="robot_name" value="$(arg robot_name)" />
+      <arg name="ip_address" value="$(arg ip_address)" />
+      <arg name="send_format" value="$(arg send_format)" />
+      <arg name="recv_format" value="$(arg recv_format)" />
+  </include>
+
+  <!-- launches moveit and its functionalities-->
+  <include file="$(find rover_denso_moveit)/launch/move_group.launch">
+    <arg name="publish_monitored_planning_scene" value="true" />
+    <arg name="pipeline" value="$(arg pipeline)" />
+  </include>
+
+  <!--Launches rviz and its config file-->
+  <include file="$(find rover_denso_moveit)/launch/moveit_rviz.launch">
+    <arg name="config" value="true"/>
+  </include>
+
+</launch>

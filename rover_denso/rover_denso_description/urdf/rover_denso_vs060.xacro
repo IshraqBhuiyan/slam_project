@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<robot name="rover_denso" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <link name='base_link'>
+	    <origin xyz="0 0 0" rpy=" 0 0 0"/>
+	</link>
+
+    <!-- Physics propetries for track simulator: -->
+    <!-- Contact Stiffness, kp; Damping, kd -->
+    <!-- Maximum contact correction velocity, maxVel -->
+    <!-- Minimum allowable depth before correction impulse, minDepth -->
+    <!-- Maximum contact points, maxContacts -->
+    <!-- selfCollide -->
+    <!-- Friction, mu1, mu2 -->
+    <xacro:property name = "kp" value = "2000000" />
+	<xacro:property name = "kd" value = "0.0009" />
+    <xacro:property name = "mu1" value = "10.7" />
+	<xacro:property name = "mu2" value = "10.7" />
+
+    <!-- Body -->
+
+    <xacro:include filename="$(find rover_denso_description)/urdf/rover.xacro"/>
+    <Rover parent="base_link" kp="${kp}" kd="${kd}" mu1="${mu1}" mu2="${mu2}"/>
+
+    <!-- Platform -->
+    
+    <xacro:include filename="$(find rover_denso_description)/urdf/platform.xacro"/>
+    <Platform parent="chassis"/>
+
+    <!-- Manipulator -->
+
+    <xacro:include filename="$(find rover_denso_description)/urdf/denso_vs060.xacro"/>
+    <Manipulator parent="platform"/>
+
+    <!--realsense-->
+    <xacro:include filename="$(find rover_denso_description)/urdf/realsense.xacro"/>
+    <realsense parent="J6"/>
+
+    <!-- Gazebo ROS Control Plugin -->
+    
+    <!-- This is used to parse the transmission tags & loads
+         hardware interfaces & controller manager. -->
+    <gazebo>
+		<selfCollide>false</selfCollide>
+	    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+	        <robotNamespace>/rover_denso</robotNamespace>
+	        <!--<robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>-->
+	    </plugin>
+	</gazebo>
+
+</robot>

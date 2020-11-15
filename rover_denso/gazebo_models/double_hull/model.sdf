@@ -1,0 +1,41 @@
+<?xml version='1.0'?>
+<sdf version='1.0'>
+  <model name="double_hull">
+	<static>true</static>
+	<link name='double_hull'>
+            <pose>0 0 0.0275 1.571 0 0</pose>
+
+            <collision name='collision'>
+              <geometry>
+                <mesh><uri>model://double_hull/mesh/Double Bottom Mock Block Cutout.stl</uri></mesh>
+              </geometry>
+		          <surface>
+                <friction>
+                  <ode>
+                    <mu>2</mu>
+                    <mu2>2</mu2>
+                  </ode>
+                </friction>
+              </surface>
+            </collision>
+            <inertial>
+              <mass>10000</mass>
+              <inertia>
+                <ixx>1.0</ixx>
+                <ixy>0.0</ixy>
+                <ixz>0.0</ixz>
+                <iyy>1.0</iyy>
+                <iyz>0.0</iyz>
+                <izz>1.0</izz>
+              </inertia>
+            </inertial>
+
+            <visual name='visual'>
+              <geometry>
+                <mesh><uri>model://double_hull/mesh/Double Bottom Mock Block Cutout.stl</uri></mesh>
+              </geometry>
+            </visual>
+          </link>
+  </model>
+</sdf>
+

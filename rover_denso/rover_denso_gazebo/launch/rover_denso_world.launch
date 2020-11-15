@@ -1,0 +1,70 @@
+<!-- <?xml version="1.0" ?> -->
+<launch>
+
+  <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+  <arg name="robot_name" default="rover_denso" />
+  <arg name="vs050" default="true" />
+  <arg name="sim" default="true" />
+  <arg name="ip_address" default="192.168.0.1" />
+
+  <!-- Keyboard Control -->
+  <arg name="keyboard_control" default="false"/>
+
+  <!-- Chose moveit planning pipeline -->
+  <arg name="pipeline" default="ompl" />
+
+  <!-- Choose Gazebo world -->
+  <arg name="world_name" default="rover_denso"/>
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find rover_denso_gazebo)/worlds/$(arg world_name).world"/>
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="headless" value="$(arg headless)"/>
+  </include>
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <group if="$(arg vs050)">
+    <param name="robot_description"
+      command="$(find xacro)/xacro --inorder '$(find rover_denso_description)/urdf/rover_denso.xacro'" />
+  </group>  
+
+  <group unless="$(arg vs050)">
+    <param name="robot_description"
+      command="$(find xacro)/xacro --inorder '$(find rover_denso_description)/urdf/rover_denso_vs060.xacro'" />
+  </group>  
+  
+  <!-- Launching ROS Controllers for Gazebo simulators -->
+  <include file="$(find rover_denso_control)/launch/rover_denso_gazebo_control.launch">
+    <arg name="keyboard_control" value="$(arg keyboard_control)" />
+  </include>
+
+  <!-- Launching Packages for Motion Planning (MoveIt, RViz, Robot Configs) -->
+  <!-- loads the kinematics and joint_limits yaml as well as URDF/SRDF file -->
+  <include file="$(find rover_denso_moveit)/launch/planning_context.launch">
+    <arg name="load_robot_description" value="false" />
+  </include>
+
+  <!--Launches rviz and its config file-->
+  <include file="$(find rover_denso_moveit)/launch/moveit_rviz.launch">
+    <arg name="config" value="true"/>
+  </include>
+
+  <!-- launches moveit and its functionalities-->
+  <include file="$(find rover_denso_moveit)/launch/move_group.launch">
+    <arg name="publish_monitored_planning_scene" value="true" />
+    <arg name="pipeline" value="$(arg pipeline)" />
+  </include>
+
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model rover_denso -param robot_description"/>
+
+</launch>

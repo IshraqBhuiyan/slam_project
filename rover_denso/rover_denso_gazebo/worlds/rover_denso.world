@@ -1,0 +1,249 @@
+<sdf version='1.6'>
+  <world name='default'>
+    <light name='sun' type='directional'>
+      <cast_shadows>1</cast_shadows>
+      <pose frame=''>0 0 10 0 -0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+    <model name='ground_plane'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>100</mu>
+                <mu2>50</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <!--visual name='visual'>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual-->
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <physics name='default_physics' default='0' type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <scene>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>1</shadows>
+    </scene>
+    <wind/>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>0</latitude_deg>
+      <longitude_deg>0</longitude_deg>
+      <elevation>0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+    <model name='double_hull'>
+      <static>1</static>
+      <link name='double_hull'>
+        <pose frame=''>0 0 0.0275 1.571 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://double_hull/mesh/Double Bottom Mock Block Cutout.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>2</mu>
+                <mu2>2</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <inertial>
+          <mass>10000</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://double_hull/mesh/Double Bottom Mock Block Cutout.stl</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>-1.78851 0.020502 0 0 -0 0</pose>
+    </model>
+    <state world_name='default'>
+      <sim_time>339 206000000</sim_time>
+      <real_time>272 162182018</real_time>
+      <wall_time>1560235692 851033424</wall_time>
+      <iterations>270048</iterations>
+      <model name='double_hull'>
+        <pose frame=''>-1.93209 -0.001146 -0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='double_hull'>
+          <pose frame=''>-1.93209 -0.001146 0.0275 1.571 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='ground_plane'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='rover_denso'>
+        <pose frame=''>-0.000471 0.000463 -0.000678 7e-06 -0.001222 0.003203</pose>
+        <scale>1 1 1</scale>
+        <link name='BASE'>
+          <pose frame=''>-0.000987 0.000458 0.421821 -7e-06 0.001222 -3.13799</pose>
+          <velocity>-0.003382 0.000609 -0.035053 -0.001411 -0.008828 -0.000105</velocity>
+          <acceleration>-0.400704 -0.022143 2.04248 0.047209 -0.842208 0.030725</acceleration>
+          <wrench>-4.00704 -0.221432 20.4248 0 -0 0</wrench>
+        </link>
+        <link name='J1'>
+          <pose frame=''>-0.001209 0.000456 0.60332 -1.2e-05 0.001346 -3.13806</pose>
+          <velocity>-0.004934 0.000867 -0.034876 -0.001977 0.008089 -7.2e-05</velocity>
+          <acceleration>-0.558421 -0.030892 2.05077 -0.043073 -0.279159 -0.045825</acceleration>
+          <wrench>-2.41629 -0.133672 8.87368 0 -0 0</wrench>
+        </link>
+        <link name='J2'>
+          <pose frame=''>-0.001404 0.000455 0.766819 -2.3e-05 1.00139 -3.13808</pose>
+          <velocity>-0.00696 0.001075 -0.03483 -0.001928 0.00028 -6e-05</velocity>
+          <acceleration>-0.744202 -0.043913 2.05235 -0.03791 0.187523 -0.03605</acceleration>
+          <wrench>-7.05131 -0.416073 19.446 0 -0 0</wrench>
+        </link>
+        <link name='J3'>
+          <pose frame=''>-0.211934 -0.000292 0.901627 -3.9e-05 1.00151 -3.13809</pose>
+          <velocity>-0.010037 0.001313 -0.03773 -0.002639 -0.022548 -8.5e-05</velocity>
+          <acceleration>-0.879204 -0.03916 1.92273 2.96589 1.50701 3.01862</acceleration>
+          <wrench>-3.6021 -0.160438 7.87744 0 -0 0</wrench>
+        </link>
+        <link name='J4'>
+          <pose frame=''>-0.307167 -0.000629 0.974487 3.9e-05 1.00168 -3.13798</pose>
+          <velocity>-0.014918 0.001415 -0.042542 0.000726 -0.003208 -0.003919</velocity>
+          <acceleration>-0.974316 -0.038521 1.87406 2.17713 0.036008 -3.07269</acceleration>
+          <wrench>-1.73331 -0.068529 3.33395 0 -0 0</wrench>
+        </link>
+        <link name='J5'>
+          <pose frame=''>-0.42129 -0.001035 1.04752 -0.000134 1.00185 -3.1381</pose>
+          <velocity>-0.017204 0.001515 -0.043893 -0.008218 -0.032568 -0.006745</velocity>
+          <acceleration>-0.933654 -0.031178 2.05219 -1.87611 -1.11758 -2.22271</acceleration>
+          <wrench>-1.13065 -0.037757 2.4852 0 -0 0</wrench>
+        </link>
+        <link name='J6'>
+          <pose frame=''>-0.480251 -0.001243 1.08524 -0.000186 1.00184 -3.13819</pose>
+          <velocity>-0.019185 0.001508 -0.045637 -0.009142 -0.029457 -0.003324</velocity>
+          <acceleration>-0.840591 0.053931 2.38802 1.78294 -1.34207 1.70418</acceleration>
+          <wrench>-3.62127 0.232335 10.2876 0 -0 0</wrench>
+        </link>
+        <link name='base_link'>
+          <pose frame=''>-0.000471 0.000463 -0.000678 7e-06 -0.001222 0.003203</pose>
+          <velocity>0.000346 1.3e-05 -0.035123 -0.00141 -0.008866 -0.000146</velocity>
+          <acceleration>-0.185937 -0.010106 2.03917 0.047257 -0.8398 -0.051924</acceleration>
+          <wrench>-3.5328 -0.192006 38.7441 0 -0 0</wrench>
+        </link>
+        <link name='left_wheel1'>
+          <pose frame=''>0.14496 -0.179073 0.117998 1.57071 0.026405 0.003201</pose>
+          <velocity>-0.001036 0.000166 -0.033635 -0.001409 -0.008771 -0.000139</velocity>
+          <acceleration>-0.100148 -0.005737 2.14135 0 -0 0</acceleration>
+          <wrench>-0.100148 -0.005737 2.14135 0 -0 0</wrench>
+        </link>
+        <link name='left_wheel2'>
+          <pose frame=''>-0.145035 -0.180002 0.117644 1.57071 -0.000204 0.003203</pose>
+          <velocity>-0.001047 0.000167 -0.036282 -0.001417 -0.008866 -0.000123</velocity>
+          <acceleration>-0.10003 -0.005332 1.90606 0 -0 0</acceleration>
+          <wrench>-0.10003 -0.005332 1.90606 0 -0 0</wrench>
+        </link>
+        <link name='right_wheel1'>
+          <pose frame=''>0.143807 0.180925 0.118001 1.57071 0.017721 0.003201</pose>
+          <velocity>-0.001038 0.000168 -0.034132 -0.001426 -0.008788 -0.00011</velocity>
+          <acceleration>-0.099657 -0.005542 2.15422 0 -0 0</acceleration>
+          <wrench>-0.099657 -0.005542 2.15422 0 -0 0</wrench>
+        </link>
+        <link name='right_wheel2'>
+          <pose frame=''>-0.146188 0.179996 0.117647 1.57071 -0.009954 0.003204</pose>
+          <velocity>-0.00105 0.000168 -0.03679 -0.001427 -0.008887 -0.000127</velocity>
+          <acceleration>-0.099605 -0.005452 1.92337 0 -0 0</acceleration>
+          <wrench>-0.099605 -0.005452 1.92337 0 -0 0</wrench>
+        </link>
+      </model>
+      <light name='sun'>
+        <pose frame=''>0 0 10 0 -0 0</pose>
+      </light>
+    </state>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose frame=''>1.28623 -3.97 3.0529 0 0.575643 2.0002</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+
+  </world>
+</sdf>

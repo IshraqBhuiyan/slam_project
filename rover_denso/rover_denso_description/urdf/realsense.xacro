@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--Develped by Daniel Ordonez 22.05.2018 - daniels.ordonez@gmail.com
+  INFORMATION:
+    This is an example of how to use the realsense-rs200 macro function.
+-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot_with_rs200">
+
+    <!-- Import macro for realsense-RS200 camera-->
+    <xacro:include filename="$(find rover_denso_description)/urdf/RS200.xacro"/>
+    <!-- Create camera instance -->
+        <realsense-rs200 prefix="" parent="J6">
+            <origin xyz="-0.081 0.02 0.091" rpy="0 -0.3484074 3.1415927" />   
+        </realsense-rs200>
+
+        <link name="d435i_link" />
+        <joint name="d435i_joint" type="fixed">
+            <parent link="J6"/>
+            <child link="d435i_link"/>
+            <origin xyz="-0.081 0.02 0.091" rpy="0 -0.3484074 3.1415927" />
+        </joint>
+</robot>

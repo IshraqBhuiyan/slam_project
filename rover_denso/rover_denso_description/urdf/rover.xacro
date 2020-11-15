@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="Body">
+    <xacro:macro name="Rover" params="parent kp kd mu1 mu2">
+
+        <!-- ======================= Links ======================= -->
+        <link name="chassis">
+            <inertial>
+                <origin xyz="0.0 0.0 0" rpy=" 0 0 0"/>
+                    <inertia
+                    ixx="0.318" ixy="0.0" ixz="0.0"
+                    iyy="0.410" iyz="0.0"
+                    izz="0.636" />
+                <mass value="9" />
+            </inertial>
+
+            <collision>
+                <origin xyz="0.0 0.0 -0.0538" rpy="0.0 0.0 0.0"/>
+                <geometry>
+                    <box size="0.44 0.269 0.142"/>
+                </geometry>
+            </collision>
+
+            <visual name="visual">
+                <origin xyz="0 0.015 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://rover_denso_description/meshes/open_rover.dae" />
+                </geometry>
+            </visual>
+        </link>
+
+        <xacro:macro name="wheel" params="link">
+            <link name="${link}">
+                <collision>
+                    <geometry>
+                        <cylinder radius=".118" length =".07" />
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode>
+                                <mu>${mu1}</mu>
+                                <mu2>${mu2}</mu2>
+                            </ode>
+                        </friction>
+                    </surface>
+                </collision>
+                <inertial>
+                    <mass value="1" />
+                    <inertia
+                        ixx="0.0" ixy="0.0" ixz="0.0"
+                        iyy="0.0" iyz="0.0"
+                        izz="0.0"/>
+                </inertial>
+            </link>
+        </xacro:macro>
+
+        <xacro:wheel link="left_wheel1"/>
+        <xacro:wheel link="left_wheel2"/>
+
+        <xacro:wheel link="right_wheel1"/>
+        <xacro:wheel link="right_wheel2"/>
+
+
+        <!-- ======================= Joints ======================= -->
+        <joint name="base_hinge" type="fixed">
+            <parent link="${parent}"/>
+            <child  link="chassis"/>
+            <origin xyz="0 0 0.1725" rpy="0 0 0 "/>
+        </joint>
+
+        <!-- Body-Wheel Joint Macro -->
+        <xacro:macro name="body_wheel_joint" params="left_right wheel_index">
+            <joint type="continuous" name="${left_right}_wheel${wheel_index}_hinge">
+                <xacro:property name="reflect" value="-1"/>
+                <xacro:if value="${left_right == 'left'}">
+                    <xacro:property name="reflect" value="1"/>
+                </xacro:if>
+                <origin xyz="${0.145-(wheel_index-1)*0.29} ${reflect*0.180} -0.054 " rpy="-1.5707 0 0"/>
+                <child link="${left_right}_wheel${wheel_index}" />
+                <parent link="chassis" />
+                <axis xyz="0 0 1" />
+            </joint>
+        </xacro:macro>
+
+        <xacro:body_wheel_joint left_right="left" wheel_index="1"/>
+        <xacro:body_wheel_joint left_right="left" wheel_index="2"/>
+
+        <xacro:body_wheel_joint left_right="right" wheel_index="1"/>
+        <xacro:body_wheel_joint left_right="right" wheel_index="2"/>
+
+
+        <!-- =================== Transmission ===================== -->
+        <!-- Body Wheels Transmission Macro -->
+        <xacro:macro name="body_wheel_transmission" params="left_right wheel_index">
+            <transmission name="${left_right}_wheel${wheel_index}_tr">
+                <type>transmission_interface/SimpleTransmission</type>
+                <joint name="${left_right}_wheel${wheel_index}_hinge">
+                    <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+                </joint>
+                <actuator name="${left_right}_wheel${wheel_index}_motor">
+                    <hardwareInterface>VelocityJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+                </actuator>
+            </transmission>
+        </xacro:macro>
+
+        <xacro:body_wheel_transmission left_right="left" wheel_index="1"/>
+        <xacro:body_wheel_transmission left_right="left" wheel_index="2"/>
+
+        <xacro:body_wheel_transmission left_right="right" wheel_index="1"/>
+        <xacro:body_wheel_transmission left_right="right" wheel_index="2"/>
+
+        <!-- ======================= Gazebo ======================= -->
+        <!-- Gazebo Element List for Links -->
+        <gazebo reference="chassis">
+            <kp>${kp}</kp>
+            <kd>${kd}</kd>
+            <mu1>${mu1}</mu1>
+            <mu2>${mu2}</mu2>
+            <fdir1>0 0 1</fdir1>
+        </gazebo>
+
+        <!-- Body Wheel Properties Macro -->
+        <xacro:macro name="body_wheel_properties" params="link">
+            <gazebo reference="${link}">
+                <kp>${kp}</kp>
+                <kd>${kd}</kd>
+                <mu1>${mu1}</mu1>
+                <mu2>${mu2}</mu2>
+                <fdir1>0 0 1</fdir1>
+            </gazebo>
+        </xacro:macro>
+
+        <xacro:body_wheel_properties link="left_wheel1"/>
+        <xacro:body_wheel_properties link="left_wheel2"/>
+
+        <xacro:body_wheel_properties link="right_wheel1"/>
+        <xacro:body_wheel_properties link="right_wheel2"/>
+        
+    </xacro:macro>
+
+</robot>

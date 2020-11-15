@@ -1,0 +1,309 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="manipulator">
+    <xacro:macro name="Manipulator" params="parent">
+
+        <!-- ======================= Links ======================= -->
+
+        <link name="BASE">
+            <visual>
+                <origin xyz="0 0 0.0" rpy="0 -0 0"/>
+                <geometry>
+                    <mesh filename="package://rover_denso_description/meshes/vs050/BASE_mesh.dae" />
+                </geometry>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 -0 0"/>
+                <geometry>
+                    <mesh filename="package://rover_denso_description/meshes/vs050/BASE_mesh.dae" />
+                </geometry>
+            </collision>
+            <inertial>
+                <mass value="10.77" />
+                <origin xyz="-0.0511 0.0025 0.0876" rpy="0 -0 0"/>
+                <inertia ixx="0.0390" ixy="0.0000" ixz="0.0000"
+                         iyy="0.0873" iyz="0.0000"
+                         izz="0.0856"/>
+            </inertial>
+        </link>
+
+        <link name="J1">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://rover_denso_description/meshes/vs050/J1.dae" />
+                </geometry>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://rover_denso_description/meshes/vs050/J1.dae" />
+                </geometry>
+            </collision>
+            <inertial>
+                <origin xyz='0 0 0.0747' rpy='0 0 0'/>
+                <mass value="5.012" />
+                <inertia ixx="0.0378" ixy="0.0000" ixz="0.0000"
+                         iyy="0.0277" iyz="0.0000"
+                         izz="0.0235"/>
+            </inertial>
+        </link>
+
+        <link name="J2">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://rover_denso_description/meshes/vs050/J2.dae" />
+                </geometry>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://rover_denso_description/meshes/vs050/J2.dae" />
+                </geometry>
+            </collision>
+            <inertial>
+                <origin xyz="0.0131 0.0 0.0827" rpy="0 0 0"/>
+                <mass value="6.123" />
+                <inertia ixx="0.0631" ixy="0.0000" ixz="0.0022"
+                         iyy="0.0581" iyz="0.0018"
+                         izz="0.0178"/>
+            </inertial>
+        </link>
+
+        <link name="J3">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://rover_denso_description/meshes/vs050/J3.dae" />
+                </geometry>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://rover_denso_description/meshes/vs050/J3.dae" />
+                </geometry>
+            </collision>
+            <inertial>
+                <origin xyz="0.0 0.0 0.0326" rpy="0 0 0"/>
+                <mass value="2.638" />
+                <inertia ixx="0.0080" ixy="0.0000" ixz="-0.0005"
+                         iyy="0.0079" iyz="0.0000"
+                         izz="0.0040"/>
+            </inertial>
+        </link>
+
+        <link name="J4">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://rover_denso_description/meshes/vs050/J4.dae" />
+                </geometry>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://rover_denso_description/meshes/vs050/J4.dae" />
+                </geometry>
+            </collision>
+            <inertial>
+                <origin xyz="0.0 0.0 0.063" rpy="0 0 0"/>
+                <mass value="1.733" />
+                <inertia ixx="0.0077" ixy="-0.0007" ixz="-0.0000"
+                         iyy="0.0034" iyz="-0.0000"
+                         izz="0.0025"/>
+            </inertial>
+        </link>
+
+        <link name="J5">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://rover_denso_description/meshes/vs050/J5.dae" />
+                </geometry>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://rover_denso_description/meshes/vs050/J5.dae" />
+                </geometry>
+            </collision>
+            <inertial>
+                <origin xyz="0.0 0.0 0.0086" rpy="0 0 0"/>
+                <mass value="0.730" />
+                <inertia ixx="0.0008" ixy="-0.0000" ixz="0.0000"
+                         iyy="0.0009" iyz="0.0000"
+                         izz="0.0005"/>
+            </inertial>
+        </link>
+
+        <link name="J6">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://rover_denso_description/meshes/vs050/J6.dae" />
+                </geometry>
+            </visual>
+            <collision>
+                <origin xyz="0 0.0 0.07" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://rover_denso_description/meshes/vs050/J6.dae" />
+                </geometry>
+            </collision>
+            <inertial>
+                <mass value="0.4" />
+                <origin xyz="0.0 0.0 -0.0113" rpy="0 0 0"/>
+                <inertia ixx="0.0001" ixy="0.0000" ixz="0.0000"
+                         iyy="0.0001" iyz="0.0000"
+                         izz="0.0001"/>
+            </inertial>
+        </link>
+
+        <link name="Endeffector">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://rover_denso_description/meshes/endeffector.dae" />
+                </geometry>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://rover_denso_description/meshes/endeffector.dae" />
+                </geometry>
+            </collision>
+            <inertial>
+                <origin xyz="-0.0041 0.0 0.1947" rpy="0 0 0"/>
+                <mass value="0.93" />
+                <inertia ixx="0.0144" ixy="-0.0000" ixz="0.0004"
+                         iyy="0.0148" iyz="0.0000"
+                         izz="0.0010"/>
+            </inertial>
+        </link>
+
+        <link name="Tip"/>
+
+        <!-- ======================= Joints ====================== -->
+
+	    <joint name="base" type="revolute">
+            <parent link="${parent}"/>
+            <child  link="BASE"/>
+            <origin xyz="0 0.0 0.1187" rpy="0 0 0"/>
+            <axis xyz="0 0 1" />
+            <limit lower="-0.01" upper="0.01" effort="0.0" velocity="0.0"/>
+        </joint>
+
+        <joint name="joint_1" type= "revolute">
+            <parent link="BASE"/>
+            <child  link="J1"/>
+            <origin xyz="0 0 0.181500" rpy="0 0 0 "/>
+            <axis   xyz="0 0 1"/>
+            <limit effort="1000" lower="-2.96706" upper="2.96706" velocity="3.926991"/>
+        </joint>
+
+        <joint name="joint_2" type="revolute">
+            <parent link="J1"/>
+            <child  link="J2"/>
+            <origin xyz="0 0 0.163500" rpy="0 0 0"/>
+            <axis   xyz="0 1 0"/>
+            <limit effort="1000" lower="-2.094395" upper="2.094395" velocity="3.141593"/>
+        </joint>
+
+        <joint name="joint_3" type="revolute">
+            <parent link="J2"/>
+            <child  link="J3"/>
+            <origin xyz="0 0 0.250000" rpy="0 0 0 "/>
+            <axis   xyz="0 1 0"/>
+            <limit effort="1000" lower="-2.094395" upper="2.635447" velocity="3.563962"/>
+        </joint>
+
+        <joint name="joint_4" type="revolute">
+            <parent link="J3"/>
+            <child  link="J4"/>
+            <origin xyz="-0.010000 0 0.119500" rpy="0 -0 0 "/>
+            <axis   xyz="0 0 1"/>
+            <limit effort="1000" lower="-4.712389" upper="4.712389" velocity="3.926991"/>
+        </joint>
+
+        <joint name="joint_5" type="revolute">
+            <parent link="J4"/>
+            <child  link="J5"/>
+            <origin xyz="0 0 0.135500" rpy="0 -0 0 "/>
+            <axis   xyz="0 1 0"/>
+            <limit effort="1000" lower="-2.094395" upper="2.094395" velocity="3.021688"/>
+        </joint>
+
+        <joint name="joint_6" type="revolute">
+            <parent link="J5"/>
+            <child  link="J6"/>
+            <origin xyz="0 0 0.070000" rpy="0 -0 0 "/>
+            <axis   xyz="0 0 1"/>
+            <limit effort="1000" lower="-6.283185" upper="6.283185" velocity="6.283185"/>
+        </joint>
+
+        <joint name="endeffector" type="fixed">
+            <parent link="J6"/>
+            <child  link="Endeffector"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </joint>
+
+        <joint name="tip" type="fixed">
+            <origin xyz="0.075508 0 0.419036" rpy="0 0.785398 0"/>
+            <parent link="Endeffector"/>
+            <child link="Tip"/>
+        </joint>
+
+        <!-- ==================== Transmission =================== -->
+
+        <transmission name="trans_base">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="base">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="motor_base">
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+        <!-- Manipulator Transmission Macro -->
+        <xacro:macro name="manipulator_transmission" params="joint_index">
+            <transmission name="trans_${joint_index}">
+                <type>transmission_interface/SimpleTransmission</type>
+                <joint name="joint_${joint_index}">
+                    <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+                </joint>
+                <actuator name="motor_${joint_index}">
+                    <mechanicalReduction>1</mechanicalReduction>
+                </actuator>
+            </transmission>
+        </xacro:macro>
+
+        <xacro:manipulator_transmission joint_index="1"/>
+        <xacro:manipulator_transmission joint_index="2"/>
+        <xacro:manipulator_transmission joint_index="3"/>
+        <xacro:manipulator_transmission joint_index="4"/>
+        <xacro:manipulator_transmission joint_index="5"/>
+        <xacro:manipulator_transmission joint_index="6"/>
+
+        <!-- ======================= Gazebo ====================== -->
+
+        <!-- Manupulator Links Properties Macro -->
+        <xacro:macro name="manipulator_link_properties" params="link">
+            <gazebo reference="${link}">
+                <kp>1000000000000</kp>
+                <kd>0.00025</kd>
+                <mu1>10.7</mu1>
+                <mu2>10.7</mu2>
+            </gazebo>
+        </xacro:macro>
+
+        <xacro:manipulator_link_properties link="BASE"/>
+        <xacro:manipulator_link_properties link="J1"/>
+        <xacro:manipulator_link_properties link="J2"/>
+        <xacro:manipulator_link_properties link="J3"/>
+        <xacro:manipulator_link_properties link="J4"/>
+        <xacro:manipulator_link_properties link="J5"/>
+        <xacro:manipulator_link_properties link="J6"/>
+        <xacro:manipulator_link_properties link="Endeffector"/>
+
+    </xacro:macro>
+</robot>

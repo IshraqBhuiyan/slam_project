@@ -1,0 +1,48 @@
+  <launch>
+
+  <!-- arguments -->
+  <arg name="robot_name" default="rover_denso" />
+  <arg name="ip_address" default="192.168.0.100" />
+  <arg name="send_format" default="288" />
+  <arg name="recv_format" default="292" />
+
+  <!-- b-cap Commnunication parameters -->
+  <include ns="/$(arg robot_name)" file="$(find bcap_service)/launch/bcap_service.launch.xml">
+    <arg name="ip_address" value="$(arg ip_address)" />
+  </include>
+
+  <!-- Controller parameters -->
+  <include ns="/$(arg robot_name)" file="$(find denso_robot_core)/launch/denso_robot_core.launch.xml" />
+
+  <!-- send and receive format parameters -->
+  <include ns="/$(arg robot_name)" file="$(find denso_robot_control)/launch/denso_robot_control.launch.xml">
+    <arg name="send_format" value="$(arg send_format)" />
+    <arg name="recv_format" value="$(arg recv_format)" />
+  </include>
+
+  <!-- robot parameters -->
+  <include ns="/$(arg robot_name)" file="$(find denso_robot_descriptions)/vs060_description/vs060.launch.xml" />
+
+  <!-- Launching Denso Controller for the Manipulator -->
+  <node name="denso_robot_control" pkg="denso_robot_control" type="denso_robot_control" output="screen" ns="/$(arg robot_name)"/> 
+ 
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find rover_denso_control)/config/rover_denso_controller.yaml" command="load"/>
+
+  <!-- load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/rover_denso" args="joint_state_controller
+                                            denso_arm_controller" />
+  
+  <!-- Gathers the JointStates published by gazebo and republishes them on /joint_states -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="false"/>
+    <rosparam param="source_list">[rover_denso/joint_states]</rosparam>
+  </node>
+
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="false" output="screen">
+  </node>
+  
+</launch>

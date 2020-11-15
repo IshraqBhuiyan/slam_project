@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: rover_denso_description
+    relative_path: urdf/rover_denso.xacro
+    xacro_args: "--inorder "
+  SRDF:
+    relative_path: config/rover_denso.srdf
+  CONFIG:
+    author_name: Chun Fan Goh
+    author_email: chunfang@andrew.cmu.edu
+    generated_timestamp: 1560572486

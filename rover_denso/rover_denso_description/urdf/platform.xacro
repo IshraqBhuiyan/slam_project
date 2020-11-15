@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="platform">
+    <xacro:macro name="Platform" params="parent">
+
+        <!-- ======================= Links ======================= -->
+
+        <link name="platform">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://rover_denso_description/meshes/kogumi_platform_simplified.dae" />
+                </geometry>
+            </visual>
+            <collision name="cross_frame_1">
+                <origin xyz="0 0 0.0997" rpy="0 0 0.7854"/>
+                <geometry>
+                    <box size="0.9144 0.0381 0.0381"/>
+                </geometry>
+            </collision>
+            <collision name="cross_frame_2">
+                <origin xyz="0 0 0.0997" rpy="0 0 -0.7854"/>
+                <geometry>
+                    <box size="0.9144 0.0381 0.0381"/>
+                </geometry>
+            </collision>
+            <collision name="support_1">
+                <origin xyz="0.3368 0.3368 0.0671" rpy="0 0 -0.7854"/>
+                <geometry>
+                    <box size="0.0254 0.0254 0.3048"/>
+                </geometry>
+            </collision>
+            <collision name="support_2">
+                <origin xyz="0.3368 -0.3368 0.0671" rpy="0 0 -0.7854"/>
+                <geometry>
+                    <box size="0.0254 0.0254 0.3048"/>
+                </geometry>
+            </collision>
+            <collision name="support_3">
+                <origin xyz="-0.3368 0.3368 0.0671" rpy="0 0 -0.7854"/>
+                <geometry>
+                    <box size="0.0254 0.0254 0.3048"/>
+                </geometry>
+            </collision>
+            <collision name="support_4">
+                <origin xyz="-0.3368 -0.3368 0.0671" rpy="0 0 -0.7854"/>
+                <geometry>
+                    <box size="0.0254 0.0254 0.3048"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <mass value="8.337" />
+                <origin xyz="0 0 0" rpy="0 -0 0"/>
+                <inertia ixx="0.567" ixy="0" ixz="0" iyy="0.983" iyz="0" izz="0.552"/>
+            </inertial>
+        </link>
+
+        <!-- ======================= Joints ====================== -->
+
+        <joint name="chassis_mount" type="fixed">
+            <parent link="${parent}"/>
+            <child  link="platform"/>
+            <origin xyz="0 0.0 0.0" rpy="0 0 0"/>
+            <axis xyz="0 0 1" />
+        </joint>
+
+        <!-- ==================== Transmission =================== -->
+
+
+
+        <!-- ======================= Gazebo ====================== -->
+
+        <!-- Manupulator Links Properties Macro -->
+        <gazebo reference="platform">
+            <kp>1000000000000</kp>
+            <kd>0.00025</kd>
+            <mu1>10.7</mu1>
+            <mu2>10.7</mu2>
+        </gazebo>
+
+
+    </xacro:macro>
+</robot>

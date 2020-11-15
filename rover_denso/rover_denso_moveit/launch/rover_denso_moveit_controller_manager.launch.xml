@@ -1,0 +1,20 @@
+<launch>
+    <!-- This code enable the moveit controller manager  -->
+    <!-- used for executing the motion plan. -->
+    <!-- Note thet controllers.yaml in the config is different from the one in ros_control -->
+
+    <!-- The argument for specifying robot type -->
+    <arg name="robot_name" default="rover_denso" />
+
+    <!-- Set the param that trajectory_execution_manager needs to find the controller plugin -->
+    <arg name="moveit_controller_manager" default="moveit_simple_controller_manager/MoveItSimpleControllerManager" />
+    <param name="moveit_controller_manager" value="$(arg moveit_controller_manager)"/>
+
+    <!-- Flag indicating whether the controller manager should be used or not -->
+    <arg name="use_controller_manager" default="true" />
+    <param name="use_controller_manager" value="$(arg use_controller_manager)" />
+
+    <!-- The rest of the params are specific to this plugin -->
+    <rosparam file="$(find rover_denso_moveit)/config/controllers.yaml"/>
+
+</launch>
