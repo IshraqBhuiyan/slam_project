@@ -11,8 +11,13 @@ Make sure to source each terminal window:
 source devel/setup.bash
 ```
 
-To start Gazebo and environment:
 
+To start Gazebo and environment, also source the model path:
+
+```bash
+source src/slam_projects/rover_denso/set_gazebo_path.sh
+```
+then,
 ```bash
 roslaunch rover_denso_gazebo rover_denso_world.launch
 ```
