@@ -4,3 +4,6 @@
 [submodule "ndt_omp"]
 	path = ndt_omp
 	url = https://github.com/koide3/ndt_omp.git
+[submodule "ICP_SLAM"]
+	path = ICP_SLAM
+	url = https://github.com/aliciachenw/16833-slam-project.git
