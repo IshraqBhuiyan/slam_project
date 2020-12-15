@@ -7,6 +7,3 @@
 [submodule "ICP_SLAM"]
 	path = ICP_SLAM
 	url = https://github.com/aliciachenw/16833-slam-project.git
-[submodule "localization_fusion"]
-	path = localization_fusion
-	url = https://github.com/DavidZhangQinDong/localization_fusion.git
