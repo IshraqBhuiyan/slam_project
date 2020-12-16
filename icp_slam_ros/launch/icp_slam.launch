@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <arg name="pc_topic" default="/velodyne_points"/>
+
+  <node pkg="icp_slam_ros" type="icp_slam" name="icp_slam" output="screen">
+    <param name="pc_topic" value="$(arg pc_topic)"/>
+    <param name="template" value="$(find proj_work)/maps/willow_garage.pcd"/>
+  </node>
+
+</launch>

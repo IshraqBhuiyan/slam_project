@@ -19,7 +19,7 @@
   <arg name="pipeline" default="ompl" />
 
   <!-- Choose Gazebo world -->
-  <arg name="world_name" default="rover_denso"/>
+  <arg name="world_name" default="rover_slam"/>
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
